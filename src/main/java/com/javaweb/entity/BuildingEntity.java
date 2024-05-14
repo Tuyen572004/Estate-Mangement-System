@@ -100,6 +100,10 @@ public class BuildingEntity extends BaseEntity {
     @Column(name="managerphone")
     private String managerPhone;
 
+    @Column(name="image")
+    private String image;
+
+
     @OneToMany(mappedBy="building",fetch=FetchType.LAZY)
     private List<RentAreaEntity> rentAreas = new ArrayList<>();
 

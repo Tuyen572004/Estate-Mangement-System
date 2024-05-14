@@ -1,9 +1,14 @@
 import com.javaweb.entity.AssignmentBuildingEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.response.StaffResponseDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;//package com.javaweb.service.impl;
 //
 //import com.javaweb.entity.AssignmentBuildingEntity;
@@ -55,18 +60,32 @@ import java.util.stream.Collectors;//package com.javaweb.service.impl;
 //                    return staffResponseDTOS;
 //    }
 //
-//    @Override
-//    @Transactional
-//    public void updateAssignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO) {
-//        // delete all staffs by building id
-//        assignmentBuildingRepository.deleteByBuildingIdIn(Arrays.asList(assignmentBuildingDTO.getBuildingId()));
-//        // save all staffs by building id
-//        for(Long staffId : assignmentBuildingDTO.getStaffs()) {
-//            AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
-//            assignmentBuildingEntity.setBuilding(buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get());
-//            assignmentBuildingEntity.setStaff(userRepository.findById(staffId).get());
-//            assignmentBuildingRepository.save(assignmentBuildingEntity);
-//        }
+//        @Override
+//        @Transactional
+//        public void assignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO) throws MyException {
+//            try {
+//                // get the current assignments from the database
+//                List<AssignmentBuildingEntity> currentAssignments = assignmentBuildingRepository.findByBuildingId(assignmentBuildingDTO.getBuildingId());
+//                // convert new assigned staff ids to set
+//                Set<Long> newStaffIds = new HashSet<>(assignmentBuildingDTO.getStaffs());
+//                // convert current ids to set
+//                Set<Long> currentStaffIds = currentAssignments.stream().map(item -> item.getStaff().getId()).collect(Collectors.toSet());
 //
-//    }
-//}
+//                // Deleted record (those that are in the database but not in the new assignments)
+//                Set<Long> deletedStaffIds = new HashSet<>(currentStaffIds);
+//                deletedStaffIds.removeAll(newStaffIds);
+//                assignmentBuildingRepository.deleteByBuildingIdAndStaffIdIn(assignmentBuildingDTO.getBuildingId(), deletedStaffIds);
+//
+//                // Add new assignment (those that are not in the database but in the new assignments)
+//                newStaffIds.removeAll(currentStaffIds);
+//                for (Long staffId : newStaffIds) {
+//                    AssignmentBuildingEntity assignment = new AssignmentBuildingEntity();
+//                    assignment.setBuilding(buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get());
+//                    assignment.setStaff(userRepository.findById(staffId).get());
+//                    assignmentBuildingRepository.save(assignment);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                throw new MyException("Error when update assignment building");
+//            }
+//        }

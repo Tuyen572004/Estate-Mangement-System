@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,12 @@ import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.StaffResponseDTO;
+import org.springframework.data.domain.Pageable;
+
 
 public interface IBuildingService {
-    List<BuildingSearchResponse> findBuilding(BuildingSearchRequest buildingSearchRequest);
-    void addOrUpdateBuilding(BuildingDTO buildingDTO);
+    List<BuildingSearchResponse> findBuilding(BuildingSearchRequest buildingSearchRequest, Pageable pageable);
+    void addOrUpdateBuilding(BuildingDTO buildingDTO) throws MyException;
 
     BuildingDTO findById(Long id);
     List<StaffResponseDTO> loadStaffs(Long buildingId);

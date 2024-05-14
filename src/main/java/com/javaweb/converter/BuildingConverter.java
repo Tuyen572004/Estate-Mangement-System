@@ -14,10 +14,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.javaweb.utils.StringUtils.*;
 
 @Component
 public class BuildingConverter {
@@ -27,10 +30,6 @@ public class BuildingConverter {
 
     public BuildingDTO entityToDto(BuildingEntity item) {
         BuildingDTO buildingDTO = modelMapper.map(item, BuildingDTO.class);
-
-        // district
-        String district = DistrictCode.valueOf(item.getDistrict()).getDistrictName();
-        buildingDTO.setDistrict(district);
 
         //typecode
         String typeCode = item.getType();
@@ -58,11 +57,11 @@ public class BuildingConverter {
         String district = DistrictCode.valueOf(buildingEntity.getDistrict()).getDistrictName();
         // address = street + ward + district
         List<String> addr= new ArrayList<>();
-        if(StringUtils.check(buildingEntity.getStreet()))
+        if(check(buildingEntity.getStreet()))
             addr.add(buildingEntity.getStreet());
-        if(StringUtils.check(buildingEntity.getWard()))
+        if(check(buildingEntity.getWard()))
             addr.add(buildingEntity.getWard());
-        if(StringUtils.check(district))
+        if(check(district))
             addr.add(district);
         String address = addr.stream().collect(Collectors.joining(", "));
         buildingSearchResponse.setAddress(address);
@@ -102,7 +101,7 @@ public class BuildingConverter {
         String type = buildingDTO.getTypeCode().stream().collect(Collectors.joining(","));
         buildingEntity.setType(type);
         // rentArea
-        if (StringUtils.check(buildingDTO.getRentArea())) {
+        if (check(buildingDTO.getRentArea())) {
             List<Long> rentAreas = Arrays.stream(buildingDTO.getRentArea().split(","))
                     .map(it -> Long.parseLong(it.trim()))
                     .collect(Collectors.toList());

@@ -23,9 +23,9 @@ public class BuildingAPI {
 //    @Autowired
 //    private IAssignmentBuildingService assignmentBuildingService;
 
-    public BuildingAPI(BuildingService buildingService) {
-        this.buildingService = buildingService;
-    }
+//    public BuildingAPI(BuildingService buildingService) {
+//        this.buildingService = buildingService;
+//    }
 
     @PostMapping
     public String addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {

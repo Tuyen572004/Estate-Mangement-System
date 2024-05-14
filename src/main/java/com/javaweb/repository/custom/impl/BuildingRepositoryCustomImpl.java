@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 
 import com.javaweb.entity.BuildingEntity;
 
@@ -112,7 +113,7 @@ public class BuildingRepositoryCustomImpl implements BuildingRepositoryCustom {
     }
 
     @Override
-    public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
+    public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageable pageable) {
         StringBuilder sql = buildQuery(buildingSearchBuilder);
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();

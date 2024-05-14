@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RentAreaRepository extends JpaRepository<RentAreaEntity,Long> {
-    void deleteByBuildingIdIn(List<Long> ids);
+    List<RentAreaEntity> findByBuildingId(Long buildingId);
+    void deleteByBuildingIdAndValueIn(Long buildingId, List<Long> deletedRentAreaValues);
+    void deleteByBuildingIdIn(List<Long> buildingId);
 }

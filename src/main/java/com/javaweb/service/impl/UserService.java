@@ -180,7 +180,7 @@ public class UserService implements IUserService {
     }
     @Override
     public Map<Long, String> getAllStaffs() {
-        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(SystemConstant.ACTIVE_STATUS, "STAFF");
         Map<Long,String> result = userEntities.stream().collect(Collectors.toMap(UserEntity::getId, UserEntity::getFullName));
         return result;
     }

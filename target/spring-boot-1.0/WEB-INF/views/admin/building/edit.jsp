@@ -46,7 +46,7 @@
                 </div><!-- /.page-header -->
 
                 <div class="row">
-                    <form:form modelAttribute="modelEdit" action="${buildingEditUrl}" method="GET" id="formEditBuilding">
+                    <form:form modelAttribute="modelEdit" action="${buildingEditUrl}" method="GET" id="formEditBuilding" enctype="multipart/form-data">
                         <div class="col-xs-12">
                             <form class="form-horizontal" >
                                 <div class="form-group">
@@ -67,7 +67,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <!-- If the building has a district, display the district from the model -->
-                                                    <form:option value="${modelEdit.district}" label="${modelEdit.district}"/>
+                                                    <form:option value="${modelEdit.district}" label="${districts.get(modelEdit.district)}"/>
                                                 </c:otherwise>
                                             </c:choose>
                                             <!-- Display other district options from the model -->
@@ -215,6 +215,31 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-xs-3">Ghi chú</label>
+                                    <div class="col-xs-9">
+                                        <form:input path="note" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 no-padding-right"> Hình đại diện</label>
+                                    <div class="col-xs-9">
+                                        <input type="file" id="uploadImage"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-3"></div>
+                                    <div class="col-xs-9 ">
+                                        <c:if test="${not empty modelEdit.image}">
+                                            <c:set var="imagePath" value="/repository${modelEdit.image}"/>
+                                            <img src="${imagePath}" id="viewImage" width="300px" height="300px" style="margin-top: 50px">
+                                        </c:if>
+                                        <c:if test="${empty modelEdit.image}">
+                                            <img src="/admin/image/default.png" id="viewImage" width="300px" height="300px">
+                                        </c:if>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-xs-3"></label>
                                     <div class="col-xs-9">
                                         <c:if test="${modelEdit.id != null}">
@@ -230,6 +255,7 @@
                                         <a href="/admin/building-list" class="btn btn-primary">
                                             Hủy thao tác
                                         </a>
+                                        <img src="/img/loading.gif" style="display: none; height: 100px" id="loading_image">
                                     </div>
                                 </div>
                             </form>
@@ -245,16 +271,24 @@
 </div>
 </div><!-- /.main-content -->
 <script>
+    var imageBase64 = '';
+    var imageName = '';
     $('#btnAddOrUpdateBuilding').click(function () {
         var typeCode = [];
         var data = {};
         var dataForm = $('#formEditBuilding').serializeArray();
         data["id"] = "${modelEdit.id}";
         $.each(dataForm, function (i, field) {
-            if (field.name != "typeCode") {
-                data[field.name] = field.value;
-            } else {
-                typeCode.push(field.value);
+            if ('' !== field.value && null != field.value) {
+                if (field.name != "typeCode") {
+                    data[field.name] = field.value;
+                } else {
+                    typeCode.push(field.value);
+                }
+            }
+            if ('' !== imageBase64) {
+                data['imageBase64'] = imageBase64;
+                data['imageName'] = imageName;
             }
         })
         if (data["name"]== ""||data["name"] == null) {
@@ -272,6 +306,28 @@
         data["typeCode"] = typeCode;
         fnAddOrUpdate(data)  // call function send data to server
     });
+
+    $('#uploadImage').change(function (event) {
+        var reader = new FileReader();
+        var file = $(this)[0].files[0];
+        reader.onload = function(e){
+            imageBase64 = e.target.result;
+            imageName = file.name; // ten hinh khong dau, khoang cach. Dat theo format sau: a-b-c
+        };
+        reader.readAsDataURL(file);
+        openImage(this, "viewImage");
+    });
+
+    function openImage(input, imageView) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' +imageView).attr('src', reader.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
 
     function fnAddOrUpdate(data) { // function send data to server with ajax
         $.ajax({
