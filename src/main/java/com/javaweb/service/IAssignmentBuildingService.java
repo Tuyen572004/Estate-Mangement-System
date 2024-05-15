@@ -1,3 +1,5 @@
+// WITH CASCADE TEMPORARY WE DON'T NEED THESE INTERFACES
+
 package com.javaweb.service;
 
 import com.javaweb.exception.MyException;

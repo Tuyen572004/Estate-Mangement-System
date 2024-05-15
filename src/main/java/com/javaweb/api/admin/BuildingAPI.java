@@ -4,14 +4,10 @@ import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
-import com.javaweb.service.IAssignmentBuildingService;
 import com.javaweb.service.IBuildingService;
-import com.javaweb.service.impl.BuildingService;
-import com.javaweb.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,13 +16,6 @@ public class BuildingAPI {
     @Autowired
     private IBuildingService buildingService;
 
-//    @Autowired
-//    private IAssignmentBuildingService assignmentBuildingService;
-
-//    public BuildingAPI(BuildingService buildingService) {
-//        this.buildingService = buildingService;
-//    }
-
     @PostMapping
     public String addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         try {
@@ -34,6 +23,9 @@ public class BuildingAPI {
         } catch (Exception e) {
             e.printStackTrace();
             return "Create building fail";
+        }
+        if(buildingDTO.getId() != null) {
+            return "Update building success";
         }
         return "Create building success";
     }
@@ -61,7 +53,6 @@ public class BuildingAPI {
     @PutMapping()
     public String updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
         try {
-//            assignmentBuildingService.updateAssignmentBuilding(assignmentBuildingDTO);
             buildingService.assignmentBuilding(assignmentBuildingDTO);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,9 +1,7 @@
 package com.javaweb.entity;
 
-import com.javaweb.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import com.javaweb.entity.BuildingEntity;
 
 import javax.persistence.*;
 

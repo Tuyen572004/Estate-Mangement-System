@@ -330,6 +330,7 @@
 
 
     function fnAddOrUpdate(data) { // function send data to server with ajax
+        $('#loading_image').show();
         $.ajax({
             type: "POST",
             url: "${buildingApi}",
