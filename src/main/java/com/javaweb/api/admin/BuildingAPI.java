@@ -35,6 +35,9 @@ public class BuildingAPI {
             e.printStackTrace();
             return "Create building fail";
         }
+        if(buildingDTO.getId() != null) {
+            return "Update building success";
+        }
         return "Create building success";
     }
 
