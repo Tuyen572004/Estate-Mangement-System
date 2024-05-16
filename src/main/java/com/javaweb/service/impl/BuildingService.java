@@ -73,6 +73,12 @@ public class BuildingService implements IBuildingService {
     public void addOrUpdateBuilding(BuildingDTO buildingDTO) throws MyException {
         try {
             BuildingEntity buildingEntity = buildingConverter.dtoToEntity(buildingDTO);
+
+            if (buildingDTO.getId() != null) { // update
+                BuildingEntity foundBuilding = buildingRepository.findById(buildingDTO.getId())
+                        .orElseThrow(() -> new MyException("Không tìm thấy building"));
+                buildingEntity.setImage(foundBuilding.getImage());
+            }
             saveThumbnail(buildingDTO, buildingEntity);
             buildingRepository.save(buildingEntity);
 
