@@ -16,6 +16,7 @@ import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.utils.UploadFileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,8 @@ public class BuildingService implements IBuildingService {
     private UserRepository userRepository;
 
     private final UploadFileUtils uploadFileUtils;
+    @Autowired
+    private ModelMapper modelMapper;
 
     public BuildingService(UploadFileUtils uploadFileUtils) {
         this.uploadFileUtils = uploadFileUtils;
@@ -78,6 +81,7 @@ public class BuildingService implements IBuildingService {
                 BuildingEntity foundBuilding = buildingRepository.findById(buildingDTO.getId())
                         .orElseThrow(() -> new MyException("Không tìm thấy building"));
                 buildingEntity.setImage(foundBuilding.getImage());
+                buildingEntity.setStaffs(foundBuilding.getStaffs());
             }
             saveThumbnail(buildingDTO, buildingEntity);
             buildingRepository.save(buildingEntity);
