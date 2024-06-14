@@ -8,6 +8,7 @@ import com.javaweb.enums.TypeCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.IUserService;
 import com.javaweb.service.impl.BuildingService;
 import com.javaweb.service.impl.UserService;
@@ -36,6 +37,10 @@ public class BuildingController {
     @GetMapping("/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute(SystemConstant.MODEL_SEARCH) BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
+        // authorize staff can only see their buildings
+        if(SecurityUtils.getAuthorities().contains(SystemConstant.STAFF_ROLE)){
+            buildingSearchRequest.setStaffId(SecurityUtils.getPrincipal().getId());
+        }
         // get staffs, building types, districts send to view
         Map<Long,String> staffs = userService.getAllStaffs();
         mav.addObject(SystemConstant.MODEL_STAFFS,staffs);

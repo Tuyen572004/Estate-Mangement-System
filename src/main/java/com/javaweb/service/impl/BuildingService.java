@@ -17,6 +17,7 @@ import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
+import com.javaweb.utils.StringUtils;
 import com.javaweb.utils.UploadFileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
@@ -82,6 +83,11 @@ public class BuildingService implements IBuildingService {
     public void addOrUpdateBuilding(BuildingDTO buildingDTO) throws MyException {
         try {
             BuildingEntity buildingEntity = buildingConverter.dtoToEntity(buildingDTO);
+            if (buildingDTO.getId() != null) { // update
+                BuildingEntity foundBuilding = buildingRepository.findById(buildingDTO.getId())
+                        .orElseThrow(() -> new MyException("Không tìm thấy building"));
+                buildingEntity.setImage(foundBuilding.getImage());
+            }
             saveThumbnail(buildingDTO, buildingEntity);
             buildingRepository.save(buildingEntity);
             // delete all rent area by building id

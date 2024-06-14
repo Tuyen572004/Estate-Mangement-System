@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/common/taglib.jsp"%>
+<%@ include file="/common/taglib.jsp" %>
 <c:url var="buildingEditUrl" value="/admin/building-list"/>
 <c:url var="buildingApi" value="/api/buildings"/>
 <html>
@@ -46,9 +46,10 @@
                 </div><!-- /.page-header -->
 
                 <div class="row">
-                    <form:form modelAttribute="modelEdit" action="${buildingEditUrl}" method="GET" id="formEditBuilding" enctype="multipart/form-data">
+                    <form:form modelAttribute="modelEdit" action="${buildingEditUrl}" method="GET" id="formEditBuilding"
+                               enctype="multipart/form-data">
                         <div class="col-xs-12">
-                            <form class="form-horizontal" >
+                            <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-xs-3">Tên tòa nhà</label>
                                     <div class="col-xs-9">
@@ -67,7 +68,8 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <!-- If the building has a district, display the district from the model -->
-                                                    <form:option value="${modelEdit.district}" label="${districts.get(modelEdit.district)}"/>
+                                                    <form:option value="${modelEdit.district}"
+                                                                 label="${districts.get(modelEdit.district)}"/>
                                                 </c:otherwise>
                                             </c:choose>
                                             <!-- Display other district options from the model -->
@@ -231,10 +233,12 @@
                                     <div class="col-xs-9 ">
                                         <c:if test="${not empty modelEdit.image}">
                                             <c:set var="imagePath" value="/repository${modelEdit.image}"/>
-                                            <img src="${imagePath}" id="viewImage" width="300px" height="300px" style="margin-top: 50px">
+                                            <img src="${imagePath}" id="viewImage" width="300px" height="300px"
+                                                 style="margin-top: 50px">
                                         </c:if>
                                         <c:if test="${empty modelEdit.image}">
-                                            <img src="/admin/image/default.png" id="viewImage" width="300px" height="300px">
+                                            <img src="/admin/image/default.png" id="viewImage" width="300px"
+                                                 height="300px">
                                         </c:if>
                                     </div>
                                 </div>
@@ -242,20 +246,25 @@
                                 <div class="form-group">
                                     <label class="col-xs-3"></label>
                                     <div class="col-xs-9">
-                                        <c:if test="${modelEdit.id != null}">
-                                            <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">
-                                                Sửa tòa nhà
-                                            </button>
-                                        </c:if>
-                                        <c:if test="${modelEdit.id == null}">
-                                            <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">
-                                                Thêm tòa nhà
-                                            </button>
-                                        </c:if>
+                                        <security:authorize access="hasRole('MANAGER')">
+                                            <c:if test="${modelEdit.id != null}">
+                                                <button type="button" class="btn btn-primary"
+                                                        id="btnAddOrUpdateBuilding">
+                                                    Sửa tòa nhà
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${modelEdit.id == null}">
+                                                <button type="button" class="btn btn-primary"
+                                                        id="btnAddOrUpdateBuilding">
+                                                    Thêm tòa nhà
+                                                </button>
+                                            </c:if>
+                                        </security:authorize>
                                         <a href="/admin/building-list" class="btn btn-primary">
                                             Hủy thao tác
                                         </a>
-                                        <img src="/img/loading.gif" style="display: none; height: 100px" id="loading_image">
+                                        <img src="/img/loading.gif" style="display: none; height: 100px"
+                                             id="loading_image">
                                     </div>
                                 </div>
                             </form>
@@ -291,15 +300,15 @@
                 data['imageName'] = imageName;
             }
         })
-        if (data["name"]== ""||data["name"] == null) {
+        if (data["name"] == "" || data["name"] == null) {
             alert("Name is required");
             return;
         }
-        if(typeCode.length == 0){
+        if (typeCode.length == 0) {
             alert("TypeCode is required");
             return;
         }
-        if(data["district"]== ""||data["district"] == null){
+        if (data["district"] == "" || data["district"] == null) {
             alert("District is required");
             return;
         }
@@ -310,7 +319,7 @@
     $('#uploadImage').change(function (event) {
         var reader = new FileReader();
         var file = $(this)[0].files[0];
-        reader.onload = function(e){
+        reader.onload = function (e) {
             imageBase64 = e.target.result;
             imageName = file.name; // ten hinh khong dau, khoang cach. Dat theo format sau: a-b-c
         };
@@ -322,7 +331,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#' +imageView).attr('src', reader.result);
+                $('#' + imageView).attr('src', reader.result);
             }
             reader.readAsDataURL(input.files[0]);
         }
