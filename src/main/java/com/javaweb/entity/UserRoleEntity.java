@@ -1,5 +1,6 @@
 package com.javaweb.entity;
 
+// NO NEED BECAUSE WE USE @ManyToMany
 
 //import javax.persistence.*;
 //import javax.persistence.GeneratedValue;

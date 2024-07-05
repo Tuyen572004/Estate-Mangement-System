@@ -1,10 +1,13 @@
 package com.javaweb.service;
 
+import com.javaweb.entity.CustomerEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.exception.MyException;
+import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.ResponseDTO;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -27,4 +30,5 @@ public interface IUserService {
     int countTotalItems();
 
     Map<Long, String> getAllStaffs();
+
 }

@@ -20,13 +20,6 @@ public class BuildingAPI {
     @Autowired
     private IBuildingService buildingService;
 
-//    @Autowired
-//    private IAssignmentBuildingService assignmentBuildingService;
-
-//    public BuildingAPI(BuildingService buildingService) {
-//        this.buildingService = buildingService;
-//    }
-
     @PostMapping
     public String addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         try {

@@ -38,6 +38,7 @@ public class UserController {
 		model.setListResult(news);
 		model.setTotalItems(userService.countTotalItems());
 		mav.addObject(SystemConstant.MODEL, model);
+		mav.addObject(SystemConstant.MODEL_SEARCH,news); // add this line to fix the error not showing the list of users
 		initMessageResponse(mav, request);
 		return mav;
 	}

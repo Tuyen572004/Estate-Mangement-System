@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -26,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -40,13 +43,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
                 http.csrf().disable()
                 .authorizeRequests()
-                        //.antMatchers("/admin/building-edit").hasAnyRole("MANAGER")
-                        .antMatchers("/admin/user-list","/admin/user-edit","/admin/user-edit-{id}","/admin/building-edit").hasAnyRole("MANAGER")
-                        .antMatchers("/admin/**").hasAnyRole("MANAGER","STAFF","ADMIN")
+                        // manager can see all
+                        .antMatchers("/resources/**").permitAll()
+                        .antMatchers("/admin/home").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers("/admin/building-list").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers("/admin/customer-list").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers("/admin/customer-edit**").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers("/admin/building-edit**").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers("/admin/**").hasAnyRole("MANAGER")
                         .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()
@@ -62,4 +71,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new CustomSuccessHandler();
     }
+
 }

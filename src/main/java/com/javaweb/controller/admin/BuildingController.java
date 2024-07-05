@@ -1,7 +1,6 @@
 package com.javaweb.controller.admin;
 
 
-
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.enums.DistrictCode;
 import com.javaweb.enums.TypeCode;
@@ -11,7 +10,6 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.IUserService;
 import com.javaweb.service.impl.BuildingService;
-import com.javaweb.service.impl.UserService;
 import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,11 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +62,7 @@ public class BuildingController {
         return mav;
     }
 
+   // @PreAuthorize("@securityService.hasBuilding(#id)")
     @GetMapping("/admin/building-edit-{id}")
     public ModelAndView editBuilding(@PathVariable Long id){
         ModelAndView mav = new ModelAndView("admin/building/edit");

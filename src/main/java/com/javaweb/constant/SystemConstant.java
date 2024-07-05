@@ -27,6 +27,9 @@ public class SystemConstant {
     public static final String MODEL_DISTRICTS = "districts";
     public static final String MODEL_BUILDING_SEARCH_RESPONSES = "buildingSearchResponses";
     public static final String MODEL_EDIT = "modelEdit";
+    public static final String MODEL_CUSTOMER_RESPONSES = "customerResponses";
+    public static final String MODEL_STATUS = "status";
+    public static final String MODEL_TRANSACTION = "transaction";
 
     // constants for check active
     public static final int ACTIVE_STATUS = 1;
