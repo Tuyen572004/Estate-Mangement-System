@@ -180,6 +180,7 @@
                         </div>
                     </div>
                     <div style="text-align:right">
+                    <security:authorize access="hasRole('MANAGER')">
                         <a href="/admin/building-edit">
                             <button title="Thêm tòa nhà" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -191,7 +192,6 @@
                                 </svg>
                             </button>
                         </a>
-                        <security:authorize access="hasRole('MANAGER')">
                             <button title="Xóa tòa nhà" class="btn btn-danger" id="btnDeleteBuildings">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-building-fill-dash" viewBox="0 0 16 16">

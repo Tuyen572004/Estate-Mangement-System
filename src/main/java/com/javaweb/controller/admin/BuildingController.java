@@ -13,6 +13,7 @@ import com.javaweb.service.impl.BuildingService;
 import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,7 +63,7 @@ public class BuildingController {
         return mav;
     }
 
-   // @PreAuthorize("@securityService.hasBuilding(#id)")
+    @PreAuthorize("@securityService.hasBuilding(#id)")
     @GetMapping("/admin/building-edit-{id}")
     public ModelAndView editBuilding(@PathVariable Long id){
         ModelAndView mav = new ModelAndView("admin/building/edit");

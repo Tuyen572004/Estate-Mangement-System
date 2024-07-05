@@ -4,6 +4,7 @@ import com.javaweb.security.CustomSuccessHandler;
 import com.javaweb.service.impl.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -49,13 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 http.csrf().disable()
                 .authorizeRequests()
                         // manager can see all
-                        .antMatchers("/resources/**").permitAll()
-                        .antMatchers("/admin/home").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/admin/building-list").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/admin/customer-list").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/admin/customer-edit**").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/admin/building-edit**").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/admin/**").hasAnyRole("MANAGER")
+                        //.antMatchers("/resources/**").permitAll().anyRequest().permitAll()
+                        .antMatchers("/api/buildings","/api/user**","/admin/building-edit","/admin/user**").hasRole("MANAGER")
+                        .antMatchers("/admin/**","/api/customer").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers(HttpMethod.POST,"/api/customer").permitAll()
                         .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()
