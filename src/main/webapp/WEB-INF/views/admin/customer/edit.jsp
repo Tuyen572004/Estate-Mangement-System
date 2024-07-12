@@ -193,7 +193,7 @@
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <button class="btn btn-xs btn-info" data-toggle="tooltip"
                                                             title="Sửa thông tin giao dịch"
-                                                            onclick="updateTransaction(${transactionDetail.id},${transactionDetail.note})">
+                                                            onclick="updateTransaction(${transactionDetail.id},'${transactionDetail.note}')">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </button>
                                                 </div>
@@ -283,6 +283,8 @@
     function addTransaction(transactionType) {
         $('#addTransactionModal').modal();
         $('#code').val(transactionType);
+        $('#id').val(null);
+        $('#note').val(null);
     }
 
     function updateTransaction(id, note) {
