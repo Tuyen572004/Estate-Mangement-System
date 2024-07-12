@@ -22,10 +22,5 @@ public interface ICustomerService {
 
     CustomerEntity findById(Long id);
 
-    // findByCodeAndCustomerID
-    List<TransactionEntity> findTransaction(Long id, String transactionType);
-
     void addOrUpdateCustomer(CustomerDTO customerDTO);
-
-    void addOrUpdateTransaction(TransactionDTO transactionDTO);
 }

@@ -2,11 +2,9 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.AssignmentCustomerEntity;
 import com.javaweb.entity.CustomerEntity;
-import com.javaweb.entity.TransactionEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
-import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.AssignmentCustomerRepository;
@@ -114,16 +112,6 @@ public class CustomerService implements ICustomerService {
     }
 
     /*
-     * @Brief : Find all transaction by customer id and transaction type
-     * @param id : customer id
-     * @param transactionType : transaction type (CSKH, DDX)
-     */
-    @Override
-    public List<TransactionEntity> findTransaction(Long id, String transactionType) {
-        return transactionRepository.findByCustomerIdAndCode(id, transactionType);
-    }
-
-    /*
      * @Brief: Add or update customer --> If add a new customer then set isActive = 1
      */
     @Override
@@ -137,24 +125,5 @@ public class CustomerService implements ICustomerService {
         }
         customerEntity.setIsActive(Long.valueOf(1)); // in case add new customer
         customerRepository.save(customerEntity);
-    }
-
-    /*
-     * @Brief: Add or update transaction
-     *         --> Because when send data we only send id and new note or information of modified attrs
-     *             so we need to get info of the other attrs by id then update new attrs
-     */
-    @Override
-    @Transactional
-    public void addOrUpdateTransaction(TransactionDTO transactionDTO) {
-        TransactionEntity newTransaction = modelMapper.map(transactionDTO, TransactionEntity.class);
-        if(transactionDTO.getId()!=null){ // get previous info of transaction
-            TransactionEntity oldTransaction=transactionRepository.findById(transactionDTO.getId()).get();
-            newTransaction.setCode(oldTransaction.getCode());
-            newTransaction.setCreatedBy(oldTransaction.getCreatedBy());
-            newTransaction.setCreatedDate(oldTransaction.getCreatedDate());
-        }
-        newTransaction.setCustomer(customerRepository.findById(transactionDTO.getCustomerId()).get());
-        transactionRepository.save(newTransaction);
     }
 }

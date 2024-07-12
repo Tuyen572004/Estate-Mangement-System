@@ -77,7 +77,8 @@
                                                     </label>
                                                     <div class="col-sm-8">
                                                         <div class="fg-line">
-                                                            <form:input path="searchValue" cssClass="form-control input-sm"/>
+                                                            <form:input path="searchValue"
+                                                                        cssClass="form-control input-sm"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,16 +146,11 @@
                                         <display:column headerClass="text-left" property="userName" title="Tên"/>
                                         <display:column headerClass="text-left" property="fullName" title="full name"/>
                                         <display:column headerClass="col-actions" title="Thao tác">
-                                            <c:if test="${tableList.roleCode != 'MANAGER'}">
-                                                <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                   title="Cập nhật người dùng"
-                                                   href='<c:url value="/admin/user-edit-${tableList.id}"/>'>
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                            </c:if>
-                                            <c:if test="${tableList.roleCode == 'MANAGER'}">
-                                                <p>Không đươc thao tác</p>
-                                            </c:if>
+                                            <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+                                               title="Cập nhật người dùng"
+                                               href='<c:url value="/admin/user-edit-${tableList.id}"/>'>
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
                                         </display:column>
                                     </display:table>
                                 </div>

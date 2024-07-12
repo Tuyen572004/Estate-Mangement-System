@@ -2,11 +2,13 @@ package com.javaweb.api.admin;
 
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
-import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.service.ICustomerService;
+import com.javaweb.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
 public class CustomerAPI {
     @Autowired
     ICustomerService customerService;
+    @Autowired
+    private SecurityService securityService;
 
     @PostMapping
     public String addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO){
@@ -42,6 +46,9 @@ public class CustomerAPI {
 
     @PutMapping()
     public String updateAssignmentCustomer(@RequestBody AssignmentCustomerDTO assignmentCustomerDTO) {
+        if(!securityService.hasCustomer(assignmentCustomerDTO.getCustomerId())){ // authorize
+            throw new AccessDeniedException("Access denied");
+        }
         try {
             customerService.assignmentCustomer(assignmentCustomerDTO);
         } catch (Exception e) {
@@ -62,18 +69,4 @@ public class CustomerAPI {
         return "Delete customer success";
     }
 
-    @PostMapping("/transaction")
-    public String addOrUpdateTransaction(@RequestBody TransactionDTO transactionDTO){
-        // do something
-        try {
-            customerService.addOrUpdateTransaction(transactionDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Fail to add or update transaction";
-        }
-        if(transactionDTO.getId() != null) {
-            return "Update transaction success";
-        }
-        return "Add transaction success";
-    }
 }

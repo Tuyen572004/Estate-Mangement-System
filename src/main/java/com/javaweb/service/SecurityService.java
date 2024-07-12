@@ -1,8 +1,10 @@
 package com.javaweb.service;
 
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.entity.CustomerEntity;
 import com.javaweb.repository.AssignmentBuildingRepository;
 import com.javaweb.repository.AssignmentCustomerRepository;
+import com.javaweb.repository.CustomerRepository;
 import com.javaweb.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class SecurityService {
     private AssignmentCustomerRepository assignmentCustomerRepository;
     @Autowired
     private AssignmentBuildingRepository assignmentBuildingRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     private boolean checkManager() {
         return SecurityUtils.getAuthorities().contains(SystemConstant.MANAGER_ROLE);
@@ -27,6 +31,12 @@ public class SecurityService {
     }
 
     public boolean hasCustomer(Long id) {
+        // check is customer active
+        CustomerEntity customerEntity = customerRepository.findById(id).orElse(null);
+        if (customerEntity == null || customerEntity.getIsActive()==0) {
+            return false;
+        }
+
         // if manager then return true
         if (checkManager()) {
             return true;

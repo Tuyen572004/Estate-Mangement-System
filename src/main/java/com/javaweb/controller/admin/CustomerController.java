@@ -10,7 +10,9 @@ import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.repository.AssignmentCustomerRepository;
 import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.ICustomerService;
+import com.javaweb.service.ITransactionService;
 import com.javaweb.service.IUserService;
+import com.javaweb.service.impl.TransactionService;
 import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +37,9 @@ public class CustomerController {
     private ICustomerService customerService;
     @Autowired
     private AssignmentCustomerRepository assignmentCustomerRepository;
+
+    @Autowired
+    private ITransactionService transactionService;
 
 
     @GetMapping(value ="admin/customer-list")
@@ -81,8 +86,8 @@ public class CustomerController {
         mav.addObject(SystemConstant.MODEL_TRANSACTION, TransactionType.type());
 
         // get 2 list of 2 type of transaction
-        List<TransactionEntity> listTakeCare = customerService.findTransaction(id, "CSKH");
-        List<TransactionEntity> listVisit = customerService.findTransaction(id, "DDX");
+        List<TransactionEntity> listTakeCare = transactionService.findTransaction(id, "CSKH");
+        List<TransactionEntity> listVisit = transactionService.findTransaction(id, "DDX");
         mav.addObject("listTakeCare",listTakeCare);
         mav.addObject("listVisit",listVisit);
         return mav;

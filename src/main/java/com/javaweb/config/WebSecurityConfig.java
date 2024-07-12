@@ -50,10 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 http.csrf().disable()
                 .authorizeRequests()
                         // manager can see all
-                        //.antMatchers("/resources/**").permitAll().anyRequest().permitAll()
-                        .antMatchers("/api/buildings","/api/user**","/admin/building-edit","/admin/user**").hasRole("MANAGER")
-                        .antMatchers("/admin/**","/api/customer").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers(HttpMethod.POST,"/api/customer").permitAll()
+                        .antMatchers("/api/buildings**","/api/user**","/admin/building-edit","/admin/user**").hasRole("MANAGER")
+                        .antMatchers("/admin/**").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers(HttpMethod.POST,"/api/customers/transaction").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers(HttpMethod.PUT,"/api/customers").hasAnyRole("MANAGER","STAFF")
+                        .antMatchers(HttpMethod.POST,"/api/customers").permitAll()
+                        .antMatchers("/api/customers/**").hasAnyRole("MANAGER") // except POST (add customer) and PUT (add assignment) all customer API need MANAGER role
                         .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()
