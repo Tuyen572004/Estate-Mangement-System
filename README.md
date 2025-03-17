@@ -26,6 +26,8 @@ The **Estate Management System** is a comprehensive web application designed to 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/4da90cbf-d928-45c7-9658-e9c2d783ac19/Untitled.png)
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/f7e2da80-228d-413b-a0c2-94b12e4411c5/Untitled.png)
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/0347cead-c5f8-4c47-96fd-02f448c35b3e/Untitled.png)
+<img width="646" alt="image" src="https://github.com/user-attachments/assets/a746a670-ea88-427f-9251-ee4ccd8a4660" />
+
 
 ## **⚙️ Installation & Setup**  
 ### **🔹 Prerequisites**  
