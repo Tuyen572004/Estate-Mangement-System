@@ -1,7 +1,7 @@
-use springbootweb;
+use estateadvance;
 
-insert into role(code,name) values('ADMIN','Quản trị hệ thống');
-insert into role(code,name) values('USER','người dùng');
+insert into role(code,name) values('ADMIN','System Admin');
+insert into role(code,name) values('USER','System User');
 
 insert into user(username,password,fullname,status)
 values('admin','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','admin',1);
