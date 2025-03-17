@@ -14,8 +14,8 @@ The **Estate Management System** is a comprehensive web application designed to 
 
 ✅ **Staff & Customer Assignment**  
 - Efficiently assign **buildings and customers** to staff members for **structured management**.
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/1fa38542-625e-42b7-875c-0e476acf4778/Untitled.png&raw=true)
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/10a4640f-a42f-4754-a714-ef3a10a9cba5/Untitled.png&raw=true)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/1fa38542-625e-42b7-875c-0e476acf4778/Untitled.png)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/10a4640f-a42f-4754-a714-ef3a10a9cba5/Untitled.png)
 
 
 ✅ **User Authentication & Role-Based Access**  
@@ -23,9 +23,9 @@ The **Estate Management System** is a comprehensive web application designed to 
 
 ✅ **Robust Transaction Tracking**  
 - Implement detailed **transaction management** to track **customer operations and property assignments**.
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/4da90cbf-d928-45c7-9658-e9c2d783ac19/Untitled.png&raw=true)
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/f7e2da80-228d-413b-a0c2-94b12e4411c5/Untitled.png&raw=true)
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/0347cead-c5f8-4c47-96fd-02f448c35b3e/Untitled.png&raw=true)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/4da90cbf-d928-45c7-9658-e9c2d783ac19/Untitled.png)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/f7e2da80-228d-413b-a0c2-94b12e4411c5/Untitled.png)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6a240a7f-e5de-4ee3-b7d3-b1b0603ecf5a/0347cead-c5f8-4c47-96fd-02f448c35b3e/Untitled.png)
 
 ## **⚙️ Installation & Setup**  
 ### **🔹 Prerequisites**  
