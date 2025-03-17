@@ -36,7 +36,7 @@ git clone https://github.com/yourusername/estate-management.git
 cd estate-management
 ```
 2️⃣ **Configure the database:**  
-- Create a MySQL database named **`estate_db`**.  
+- Create a MySQL database named **`estateadvance`**.  
 - Update `application.properties` in **Spring Boot** with your **MySQL credentials**:  
   ```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/estate_db
